@@ -1,0 +1,17 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\intermediate\\build\\win64\\unrealeditor\\development\\tutorialplugineditor\\module.tutorialplugineditor.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\projects\\unrealtutorialproject\\makeplugin\\intermediate\\build\\win64\\makeplugineditor\\development\\unrealed\\sharedpch.unrealed.shadowerrors.h.pch",
+        "Includes": [
+            "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\intermediate\\build\\win64\\unrealeditor\\development\\tutorialplugineditor\\definitions.tutorialplugineditor.h",
+            "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\tutorialplugineditor\\tutorialcustomassetfactory.gen.cpp",
+            "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\source\\tutorialplugineditor\\private\\tutorialcustomassetfactory.h",
+            "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\tutorialplugineditor\\tutorialcustomassetfactory.generated.h",
+            "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\tutorialplugineditor\\tutorialplugineditor.init.gen.cpp"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

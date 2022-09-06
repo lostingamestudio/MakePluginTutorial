@@ -1,0 +1,14 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\source\\tutorialplugineditor\\private\\tutorialplugineditormodule.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\projects\\unrealtutorialproject\\makeplugin\\intermediate\\build\\win64\\makeplugineditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
+        "Includes": [
+            "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\intermediate\\build\\win64\\unrealeditor\\development\\tutorialplugineditor\\definitions.tutorialplugineditor.h",
+            "d:\\projects\\unrealtutorialproject\\makeplugin\\plugins\\tutorialplugin\\source\\tutorialplugineditor\\public\\tutorialplugineditormodule.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

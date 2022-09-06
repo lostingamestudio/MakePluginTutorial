@@ -1,0 +1,8 @@
+{
+	"BuildId": "19505902",
+	"Modules": 
+	{
+		"TutorialPlugin": "UnrealEditor-TutorialPlugin.dll",
+		"TutorialPluginEditor": "UnrealEditor-TutorialPluginEditor.dll"
+	}
+}

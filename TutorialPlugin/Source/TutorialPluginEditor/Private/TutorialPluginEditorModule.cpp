@@ -4,6 +4,7 @@
 #include "AssetTypeActions_TutorialCustomAsset.h"
 #include "FTutorialPluginEditor.h"
 #include "IAssetTools.h"
+#include "Tabs/STutorialPluginEditorDetailsPanel.h"
 
 void FTutorialPluginEditorModule::StartupModule()
 {
@@ -15,6 +16,10 @@ void FTutorialPluginEditorModule::StartupModule()
 	TSharedRef<IAssetTypeActions> Actions = MakeShared<FAssetTypeActions_TutorialCustomAsset>(AssetTypeCategory);
 	AssetTools.RegisterAssetTypeActions(Actions);
 	CreatedAssetTypeActions = Actions;
+
+	FPropertyEditorModule& PropertyEditorModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
+	PropertyEditorModule.RegisterCustomClassLayout("TutorialCustomAsset", FOnGetDetailCustomizationInstance::CreateStatic(&FTutorialPluginEditorDetailsCustomization::MakeInstance));
+	PropertyEditorModule.NotifyCustomizationModuleChanged();
 }
 
 void FTutorialPluginEditorModule::ShutdownModule()
@@ -26,6 +31,10 @@ void FTutorialPluginEditorModule::ShutdownModule()
 		IAssetTools& AssetTools = FModuleManager::GetModuleChecked<FAssetToolsModule>("AssetTools").Get();
 		AssetTools.UnregisterAssetTypeActions(CreatedAssetTypeActions.ToSharedRef());
 	}
+
+	FPropertyEditorModule& PropertyEditorModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
+	PropertyEditorModule.UnregisterCustomClassLayout("TutorialCustomAsset");
+	PropertyEditorModule.NotifyCustomizationModuleChanged();
 }
 
 void FTutorialPluginEditorModule::CreateTutorialCustomAssetEditor(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, UTutorialCustomAsset* InTutorialCustomAsset)

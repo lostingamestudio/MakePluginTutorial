@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-
 class UTutorialCustomAsset;
+class STutorialPluginEditorDetailsPanel;
 
 class FTutorialPluginEditor : public FAssetEditorToolkit
 {
@@ -16,9 +16,15 @@ public:
 	
 	void InitTutorialCustomAssetEditor(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, UTutorialCustomAsset* InTutorialCustomAsset);
 
+	UTutorialCustomAsset* GetTutorialCustomAssetEdited();
+
 private:
 	TSharedRef<SDockTab> SpawnTabControlPreview(const FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<SDockTab> SpawnTabControlCreator(const FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<SDockTab> SpawnTabViewport(const FSpawnTabArgs& SpawnTabArgs);
 	TSharedRef<SDockTab> SpawnTabDetails(const FSpawnTabArgs& SpawnTabArgs);
+
+	UTutorialCustomAsset* TutorialCustomAssetEdited;
+
+	TSharedPtr<STutorialPluginEditorDetailsPanel> DetailsPanelInstance;
 };

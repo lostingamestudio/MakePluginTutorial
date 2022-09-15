@@ -40,7 +40,10 @@ public class TutorialPluginEditor : ModuleRules
 				"SlateCore",
 				"TutorialPlugin",
 				"UnrealEd",
-				"AssetTools"
+				"AssetTools", 
+				"KismetWidgets",
+				"PropertyEditor",
+				"EditorStyle"
 				// ... add private dependencies that you statically link with here ...	
 			}
 		);

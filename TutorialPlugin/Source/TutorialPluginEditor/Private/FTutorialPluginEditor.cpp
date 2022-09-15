@@ -1,6 +1,7 @@
 ﻿#include "FTutorialPluginEditor.h"
 
 #include "TutorialCustomAsset.h"
+#include "Tabs/STutorialPluginEditorDetailsPanel.h"
 
 struct FTutorialPluginEditorTabs
 {
@@ -82,11 +83,16 @@ TSharedRef<SDockTab> FTutorialPluginEditor::SpawnTabViewport(const FSpawnTabArgs
 
 TSharedRef<SDockTab> FTutorialPluginEditor::SpawnTabDetails(const FSpawnTabArgs& SpawnTabArgs)
 {
-	return SNew(SDockTab);
+	return SNew(SDockTab)
+	[
+		SAssignNew(DetailsPanelInstance, STutorialPluginEditorDetailsPanel, SharedThis(this))
+	];
 }
 
 void FTutorialPluginEditor::InitTutorialCustomAssetEditor(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, UTutorialCustomAsset* InTutorialCustomAsset)
 {
+	TutorialCustomAssetEdited = InTutorialCustomAsset;
+	
 	const TSharedRef<FTabManager::FLayout> StandaloneDefaultLayout = FTabManager::NewLayout("StandaloneDefault_WIP_V1")->AddArea
 	(
 		FTabManager::NewPrimaryArea()
@@ -126,4 +132,9 @@ void FTutorialPluginEditor::InitTutorialCustomAssetEditor(const EToolkitMode::Ty
 	);
 	
 	InitAssetEditor(Mode, InitToolkitHost, FName("TutorialPluginEditorAppIdentifier"), StandaloneDefaultLayout, true, true, InTutorialCustomAsset);
+}
+
+UTutorialCustomAsset* FTutorialPluginEditor::GetTutorialCustomAssetEdited()
+{
+	return TutorialCustomAssetEdited;
 }

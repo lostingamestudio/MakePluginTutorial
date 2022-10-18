@@ -2,6 +2,7 @@
 
 #include "TutorialCustomAsset.h"
 #include "Tabs/STutorialPluginEditorDetailsPanel.h"
+#include "Viewport//STutorialPluginEditor_Viewport.h"
 
 struct FTutorialPluginEditorTabs
 {
@@ -78,7 +79,10 @@ TSharedRef<SDockTab> FTutorialPluginEditor::SpawnTabControlCreator(const FSpawnT
 
 TSharedRef<SDockTab> FTutorialPluginEditor::SpawnTabViewport(const FSpawnTabArgs& SpawnTabArgs)
 {
-	return SNew(SDockTab);
+	return SNew(SDockTab)
+	[
+		SAssignNew(ViewportInstance, STutorialPluginEditor_Viewport, TutorialCustomAssetEdited)
+	];
 }
 
 TSharedRef<SDockTab> FTutorialPluginEditor::SpawnTabDetails(const FSpawnTabArgs& SpawnTabArgs)

@@ -91,17 +91,33 @@ void FTutorialPluginEditorDetailsCustomization::CustomizeDetails(IDetailLayoutBu
 	.WholeRowContent()
 	[
 		SNew(SHorizontalBox)
+		//Select Previous
 		+SHorizontalBox::Slot()
 		[
 			SNew(SButton)
 			.Text(INVTEXT("<"))
 			.OnClicked(FOnClicked::CreateSP(this, &FTutorialPluginEditorDetailsCustomization::OnPreviousButtonClicked))
 		]
+		//Select next
 		+SHorizontalBox::Slot()
 		[
 			SNew(SButton)
 			.Text(INVTEXT(">"))
 			.OnClicked(FOnClicked::CreateSP(this, &FTutorialPluginEditorDetailsCustomization::OnNextButtonClicked))
+		]
+		//Add New Control
+		+SHorizontalBox::Slot()
+		[
+			SNew(SButton)
+			.Text(INVTEXT("Add"))
+			.OnClicked(FOnClicked::CreateSP(this, &FTutorialPluginEditorDetailsCustomization::AddNewControl))
+		]
+		//Remove current control
+		+SHorizontalBox::Slot()
+		[
+			SNew(SButton)
+			.Text(INVTEXT("Remove"))
+			.OnClicked(FOnClicked::CreateSP(this, &FTutorialPluginEditorDetailsCustomization::RemoveControl))
 		]
 	];
 
@@ -112,7 +128,7 @@ void FTutorialPluginEditorDetailsCustomization::CustomizeDetails(IDetailLayoutBu
 	uint32 NumElement;
 	DataArray->GetNumElements(NumElement);
 	//uint32 SelectedIndex = 0;
-	if (NumElement > 0 && TutorialCustomAssetEdited->SelectedIndex < NumElement)
+	if (NumElement > 0 && (uint32)TutorialCustomAssetEdited->SelectedIndex < NumElement)
 	{
 		const TSharedPtr<IPropertyHandle> DataChild = DataArray->GetElement(TutorialCustomAssetEdited->SelectedIndex);
 
@@ -125,13 +141,15 @@ void FTutorialPluginEditorDetailsCustomization::CustomizeDetails(IDetailLayoutBu
 		const TSharedPtr<IPropertyHandle> NormalBackgroundProperty = DataChild->GetChildHandle("NormalBackground");
 		const TSharedPtr<IPropertyHandle> LandscapeCenterProperty = DataChild->GetChildHandle("LandscapeCenter");
 		const TSharedPtr<IPropertyHandle> MainInputKeyProperty = DataChild->GetChildHandle("MainInputKey");
-
+		const TSharedPtr<IPropertyHandle> VisualSizeProperty = DataChild->GetChildHandle("VisualSize");
+		
 		BaseCat.AddProperty(ControlNameProperty);
 		BaseCat.AddProperty(IsJoystickProperty);
 
 		PropertyCat.AddProperty(NormalBackgroundProperty);
 		PropertyCat.AddProperty(LandscapeCenterProperty);
-
+		PropertyCat.AddProperty(VisualSizeProperty);
+		
 		//InputCat.AddProperty(MainInputKeyProperty);
 
 		IDetailGroup& Group = PropertyCat.AddGroup("Input", INVTEXT("Input"));
@@ -147,7 +165,8 @@ void FTutorialPluginEditorDetailsCustomization::ForceRefresh()
 FReply FTutorialPluginEditorDetailsCustomization::OnPreviousButtonClicked()
 {
 	UE_LOG(LogTemp, Log, TEXT("Previous Index"));
-	TutorialCustomAssetEdited->SelectedIndex -= 1;
+	int32 Max = TutorialCustomAssetEdited->MyTutorialDatas.Num()-1;
+	TutorialCustomAssetEdited->SelectedIndex = FMath::Clamp(TutorialCustomAssetEdited->SelectedIndex - 1, 0, Max);
 	ForceRefresh();
 	return FReply::Handled();
 }
@@ -155,7 +174,27 @@ FReply FTutorialPluginEditorDetailsCustomization::OnPreviousButtonClicked()
 FReply FTutorialPluginEditorDetailsCustomization::OnNextButtonClicked()
 {
 	UE_LOG(LogTemp, Log, TEXT("Next Index"));
-	TutorialCustomAssetEdited->SelectedIndex += 1;
+	int32 Max = TutorialCustomAssetEdited->MyTutorialDatas.Num()-1;
+	TutorialCustomAssetEdited->SelectedIndex = FMath::Clamp(TutorialCustomAssetEdited->SelectedIndex + 1, 0, Max);
+	ForceRefresh();
+	return FReply::Handled();
+}
+
+FReply FTutorialPluginEditorDetailsCustomization::AddNewControl()
+{
+	TutorialCustomAssetEdited->MyTutorialDatas.Add(FTutorialData());
+	TutorialCustomAssetEdited->SelectedIndex = TutorialCustomAssetEdited->MyTutorialDatas.Num()-1;
+	TutorialCustomAssetEdited->Modify();
+	ForceRefresh();
+	return FReply::Handled();
+}
+
+FReply FTutorialPluginEditorDetailsCustomization::RemoveControl()
+{
+	const uint32 RemoveAt = TutorialCustomAssetEdited->SelectedIndex;
+	TutorialCustomAssetEdited->SelectedIndex = FMath::Clamp(TutorialCustomAssetEdited->MyTutorialDatas.Num()-2, 0, TutorialCustomAssetEdited->MyTutorialDatas.Num());
+	TutorialCustomAssetEdited->MyTutorialDatas.RemoveAt(RemoveAt);
+	TutorialCustomAssetEdited->Modify();
 	ForceRefresh();
 	return FReply::Handled();
 }

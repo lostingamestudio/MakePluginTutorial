@@ -2,6 +2,7 @@
 
 class UTutorialCustomAsset;
 class STutorialPluginEditorDetailsPanel;
+class STutorialPluginEditor_Viewport;
 
 class FTutorialPluginEditor : public FAssetEditorToolkit
 {
@@ -27,4 +28,5 @@ private:
 	UTutorialCustomAsset* TutorialCustomAssetEdited;
 
 	TSharedPtr<STutorialPluginEditorDetailsPanel> DetailsPanelInstance;
+	TSharedPtr<STutorialPluginEditor_Viewport> ViewportInstance;
 };

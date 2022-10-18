@@ -46,4 +46,7 @@ private:
 	
 	FReply OnPreviousButtonClicked();
 	FReply OnNextButtonClicked();
+
+	FReply AddNewControl();
+	FReply RemoveControl();
 };

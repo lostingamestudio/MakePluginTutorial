@@ -25,6 +25,9 @@ struct FTutorialData
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control")
 	FVector2D LandscapeCenter;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control")
+	FVector2D VisualSize;
+
 	/** The main input to send from this control (for sticks, this is the horizontal axis) */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control")
 	FKey MainInputKey;
@@ -32,7 +35,8 @@ struct FTutorialData
 	/** Default constructor */
 	FTutorialData() :
 	bIsJoystick(false),
-	LandscapeCenter(0.5f,0.5f)
+	LandscapeCenter(0.5f,0.5f),
+	VisualSize(80.0f)
 	{
 		ControlName = FName(TEXT("NewControl"));
 	}
@@ -78,5 +82,5 @@ public:
 	UPROPERTY(Category="Data", EditAnywhere, BlueprintReadWrite)
 	TArray<FTutorialData> MyTutorialDatas;
 
-	uint32 SelectedIndex;
+	int32 SelectedIndex;
 };
